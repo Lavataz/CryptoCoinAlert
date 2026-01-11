@@ -1,8 +1,9 @@
-# Welke coin wil je monitoren?
-COIN = "XLM-EUR"
-
-# Stuur een alert als de prijs boven deze waarde komt
-THRESHOLD = 0.095
+# Lijst van coins + hun grenswaarden
+PAIRS = [
+    {"coin": "XLM-EUR", "threshold": 0.095},
+    {"coin": "XRP-EUR", "threshold": 0.55},
+    {"coin": "BTC-EUR", "threshold": 45000},
+]
 
 # Telegram instellingen
 TELEGRAM_TOKEN = "JOUW_TELEGRAM_BOT_TOKEN"
