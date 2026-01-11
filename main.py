@@ -12,24 +12,37 @@ def get_price(coin):
     return float(r.json()["price"])
 
 def main():
-    # Houdt bij welke coins al een alert hebben verstuurd
     alerted = {pair["coin"]: False for pair in PAIRS}
+    last_status_time = time.time()
 
     while True:
+        now = time.time()
+
+        # --- 1. Threshold checks ---
         for pair in PAIRS:
             coin = pair["coin"]
             threshold = pair["threshold"]
 
             price = get_price(coin)
 
-            # Check of prijs boven threshold komt
             if price > threshold and not alerted[coin]:
                 send_telegram(f"🚀 {coin} staat boven {threshold}! Huidige prijs: {price}")
                 alerted[coin] = True
 
-            # Reset wanneer prijs weer onder threshold komt
             if price <= threshold:
                 alerted[coin] = False
+
+        # --- 2. Status update elke 5 minuten ---
+        if now - last_status_time >= 300:  # 300 sec = 5 min
+            status_lines = ["📊 *Status update* (laatste 5 min):\n"]
+
+            for pair in PAIRS:
+                coin = pair["coin"]
+                price = get_price(coin)
+                status_lines.append(f"- {coin}: {price}")
+
+            send_telegram("\n".join(status_lines))
+            last_status_time = now
 
         time.sleep(5)
 
