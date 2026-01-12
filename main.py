@@ -38,7 +38,7 @@ def main():
                 alerted[coin] = True
         # --- 2. Status update elke 5 minuten ---
         if now - last_status_time >= 300:  # 300 sec = 5 min
-            status_lines = ["📊 *Status update (laatste 5 min)*:\n"]
+            status_lines = ["📊 *Status update (laatste 5 min)*:\nhreshold nog niet bereikt\n"]
             for pair in PAIRS:
                 coin = pair["coin"]
                 threshold = pair["threshold"]
