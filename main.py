@@ -32,6 +32,7 @@ def main():
             if price > threshold and not alerted[coin]:
                 send_telegram(
                     f"🚨 *PRIJS HOGER DAN THRESHOLD*\n"
+                    f"- {coin}\n"
                     f"💰 Prijs: `{price}`\n"
                     f"🎯 Threshold: `{threshold}`"
                 )
